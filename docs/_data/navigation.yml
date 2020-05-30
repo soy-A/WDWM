@@ -4,11 +4,11 @@ main:
 
   - title: "Meeting log"
 
-    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
+    url: /categories/Meeting log
 
-  - title: "회의록"
+  - title: "Progress"
 
-    url: /categories/#회의록
+    url: /categories/Progress
     
   # - title: "Sample Posts"
 
