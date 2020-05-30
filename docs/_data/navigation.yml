@@ -2,13 +2,13 @@
 
 main:
 
-  - title: "Quick-Start Guide"
+  - title: "Meeting log"
 
     url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
 
-  # - title: "About"
+   - title: "Preogress"
 
-  #   url: https://mmistakes.github.io/minimal-mistakes/about/
+     url: https://mmistakes.github.io/minimal-mistakes/about/
 
   # - title: "Sample Posts"
 
