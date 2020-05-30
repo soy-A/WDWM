@@ -4,11 +4,11 @@ main:
 
   - title: "Meeting log"
 
-    url: /categories/Meeting log
+    url: /categories/#Meeting log
 
   - title: "Progress"
 
-    url: /categories/Progress
+    url: /categories/#Progress
     
   # - title: "Sample Posts"
 
