@@ -1,0 +1,23 @@
+# main links
+
+main:
+
+  - title: "Meeting log"
+
+    url: /categories/#meeting-log
+
+  - title: "Progress"
+
+    url: /categories/#Progress
+    
+  # - title: "Sample Posts"
+
+  #   url: /year-archive/
+
+  # - title: "Sample Collections"
+
+  #   url: /collection-archive/
+
+  # - title: "Sitemap"
+
+  #   url: /sitemap/
