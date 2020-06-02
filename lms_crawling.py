@@ -17,6 +17,8 @@ for i in courseList:
     courseURL.append(i.find_element_by_tag_name('a').get_attribute('href'))
 
 for i in range(len(courseList)):
+    if courseName[i] == '[혁신교육개발원]':
+        continue
     print(courseName[i])
     driver.get(courseURL[i])
     assigns = driver.find_element_by_class_name('course_box_current').find_elements_by_class_name('modtype_assign')
