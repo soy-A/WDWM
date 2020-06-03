@@ -1,10 +1,6 @@
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import requests
-import getpass
-import json
-import os
-import urllib.request
 
 url="http://www.jbnu.ac.kr/kor/?menuID=452"
 r = requests.get(url)
@@ -15,41 +11,39 @@ driver = webdriver.Chrome('C:/Users/김자연/Desktop/setups/chromedriver_win32/
 
 driver.get(url)
 
-text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[1]/td[2]/span/a').text
-# print(text)
+#divs = bs.select("th")
+#divs = divs[-9:]
+#print(divs)
 
-date=driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[2]/td[5]').text
-# print(date)
+img=driver.find_elements_by_tag_name("img")
+print(img)
+    
 
-divs = bs.select("th")
-divs = divs[-9:]
-print(divs)
 
-print("Notice")
 
-for d in range(9):
-    icon = len(divs[d].select("img"))
-    if icon:
-        text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(d+1)).text
-        print("제목 :",text)
-        date = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[5]'%(d+1)).text
-        print("게시일 :",date)
-        link = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(d+1)).get_attribute("href")
-        print(link)
-    else:
-        break
+#for d in range(9):
+#    icon = len(divs[d].select("img"))
+#    if icon:
+#        text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(d+1)).text
+#        print("제목 :",text)
+#        date = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[5]'%(d+1)).text
+#        print("게시일 :",date)
+#        link = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(d+1)).get_attribute("href")
+#        print(link)
+#    else:
+#        break
 
-print("\n")
-for d in range(d,d+5):
-    if not icon:
-        text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(d+1)).text
-        print("제목 :",text)
-        date = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[5]'%(d+1)).text
-        print("게시일 :" ,date)
-        link = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(d+1)).get_attribute("href")
-        print(link)
-    else:
-        break
+#print("\n")
+#for d in range(d,d+5):
+#    if not icon:
+#        text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(d+1)).text
+#        print("제목 :",text)
+#        date = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[5]'%(d+1)).text
+#        print("게시일 :" ,date)
+#        link = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(d+1)).get_attribute("href")
+#        print(link)
+#    else:
+#        break
 
 
     
@@ -67,6 +61,5 @@ for d in range(d,d+5):
 # //*[@id="print_area"]/div[1]/table/tbody/tr[1]/td[2]/span/a
 # //*[@id="print_area"]/div[1]/table/tbody/tr[2]/td[2]/span/a
 # //*[@id="print_area"]/div[1]/table/tbody/tr[3]/td[2]/span/a
-
 
 
