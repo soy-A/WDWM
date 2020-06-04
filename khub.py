@@ -42,4 +42,5 @@ for i in range(len(subjectName)):   #subjectName리스트의 크기만큼 for문
                 print(worktitle, deadline, submit)
         n += 1
     driver.back()
+    driver.back()
     time.sleep(3)
