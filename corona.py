@@ -16,7 +16,6 @@ def output(postnum):
 
 
 def newpost(pagenum,postnum):
-    print("newpost in")
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
     th = driver.find_element_by_class_name('page_list').find_elements_by_tag_name('img')
@@ -31,11 +30,9 @@ def newpost(pagenum,postnum):
         lastpost(pagenum,postnum)
 
 def lastpost(pagenum,postnum):
-    print("lastpost in")
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
     nextpagepost=0
-    print("nextpagepost =",nextpagepost)
     if postnum>4:
         nextpagepost = 5-(9-postnum)
         for i in range(postnum+1,10):
@@ -53,7 +50,6 @@ def lastpost(pagenum,postnum):
 
 
 def notice(pagenum):
-    print("notice in")
     postnum=1
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
