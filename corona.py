@@ -45,7 +45,7 @@ def lastpost(pagenum,postnum):
             postnum+=1
     else:
         for i in range(5):
-            output(postnum+1) # 수정
+            output(postnum+1)
             postnum+=1
 
 
