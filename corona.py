@@ -33,7 +33,7 @@ def newpost(pagenum,postnum):
             postnum+=1
             new+=1
     if new==0:
-        lastpost(pagenum,postnum)
+        lastpost(pagenum,postnum+4)
 
 def lastpost(pagenum,postnum):
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
