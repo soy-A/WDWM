@@ -39,10 +39,10 @@ def lastpost(pagenum,postnum):
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
     nextpagepost=0
-    if postnum>4:
-        nextpagepost = 5-(9-postnum)
-        for i in range(postnum+1,10):
-            output(postnum+1)
+    if postnum>5:
+        nextpagepost = 5-(9-postnum-1)
+        for i in range(postnum,10):
+            output(postnum)
             postnum+=1
         driver.find_element_by_xpath('//*[@id="print_area"]/div[2]/a[%d]'%(pagenum+1)).click()
         postnum=0
@@ -51,8 +51,8 @@ def lastpost(pagenum,postnum):
             postnum+=1
     else:
         for i in range(5):
-            output(postnum+1)
-            postnum+=1
+            output(postnum+i)
+
 
 
 def notice(pagenum):
@@ -64,6 +64,7 @@ def notice(pagenum):
         notice = i.get_attribute('alt')
         if notice=='공지글' and postnum<len(th):
             output(postnum)
+            postnum+=1
     newpost(pagenum,postnum)
 
 def toJson(corona_dict):
