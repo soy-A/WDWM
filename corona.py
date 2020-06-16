@@ -1,9 +1,11 @@
-
+import json
 from selenium import webdriver
 
 
-driver = webdriver.Chrome('C:/Users/김자연/Desktop/setups/chromedriver_win32/chromedriver.exe')
+driver = webdriver.Chrome('C:/chromedriver.exe')
 
+corona_dict = {}
+i = 0
 
 def output(postnum):
     text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(postnum)).text
@@ -12,6 +14,10 @@ def output(postnum):
     print("게시일 :",date)
     link = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(postnum)).get_attribute("href")
     print(link)
+    global corona_dict
+    global i
+    corona_dict[i] = {'text':text, 'date':date, 'link':link}    
+    i = i+1
 
 
 
@@ -27,7 +33,7 @@ def newpost(pagenum,postnum):
             postnum+=1
             new+=1
     if new==0:
-        lastpost(pagenum,postnum)
+        lastpost(pagenum,postnum+4)
 
 def lastpost(pagenum,postnum):
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
@@ -60,4 +66,11 @@ def notice(pagenum):
             output(postnum)
     newpost(pagenum,postnum)
 
+def toJson(corona_dict):
+    with open('corona.json','w',encoding='utf-8') as file:
+        json.dump( corona_dict,file,ensure_ascii=False,indent='\t')
+
+
+
 notice(1)
+toJson(corona_dict)
