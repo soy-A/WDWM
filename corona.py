@@ -6,6 +6,7 @@ driver = webdriver.Chrome('C:/chromedriver.exe')
 
 corona_dict = {}
 i = 0
+global pagenum_,postnum_
 
 def output(postnum):
     text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(postnum)).text
@@ -32,15 +33,17 @@ def newpost(pagenum,postnum):
             output(postnum)
             postnum+=1
             new+=1
-    if new==0:
-        lastpost(pagenum,postnum+4)
+    return pagenum,postnum
+    #if new==0:
+    #    lastpost(pagenum,postnum+4)
 
 def lastpost(pagenum,postnum):
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
     nextpagepost=0
     if postnum>5:
-        nextpagepost = 5-(9-postnum-1)
+        #nextpagepost = 5-(9-postnum-1)
+        nextpagepost=5-(9-postnum+1)
         for i in range(postnum,10):
             output(postnum)
             postnum+=1
@@ -65,13 +68,20 @@ def notice(pagenum):
         if notice=='공지글' and postnum<len(th):
             output(postnum)
             postnum+=1
-    newpost(pagenum,postnum)
+    #newpost(pagenum,postnum)
+    return postnum,pagenum
+
 
 def toJson(corona_dict):
     with open('corona.json','w',encoding='utf-8') as file:
         json.dump( corona_dict,file,ensure_ascii=False,indent='\t')
 
 
+print("[고정공지]\n")
+postnum_,pagenum_=notice(1)
+print("\n\n[new 공지]\n")
+pagetnum_,postnum_=newpost(pagenum_,postnum_)
+print("\n\n[최근공지]\n")
+lastpost(pagenum_,postnum_)
 
-notice(1)
 toJson(corona_dict)
