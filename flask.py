@@ -30,7 +30,7 @@ def ithome():
              "outputs" : [
                  {
                         "simpleText" : {
-                         "text" : "1. " + corona_json[0]['title'] + "(" + corona_json[0]['date'] + ")\n" + corona_json[0]['url'] + "\n\n2. " + corona_json[1]['title'] + "(" + corona_json[1]['date'] + ")\n" + corona_json[1]['url'] + "\n\n3. " + corona_json[2]['title'] + "(" + corona_json[2]['date'] + ")\n" + corona_json[2]['url'] + "\n\n4. " + corona_json[3]['title'] + "(" + corona_json[3]['date'] + ")\n" + corona_json[3]['url'] + "\n\n5. " + corona_json[4]['title'] + "(" + corona_json[4]['date'] + ")\n" + corona_json[4]['url']
+                         "text" : "1. " + it_json[0]['title'] + "(" + it_json[0]['date'] + ")\n" + it_json[0]['url'] + "\n\n2. " + it_json[1]['title'] + "(" + it_json[1]['date'] + ")\n" + it_json[1]['url'] + "\n\n3. " + it_json[2]['title'] + "(" + it_json[2]['date'] + ")\n" + it_json[2]['url'] + "\n\n4. " + it_json[3]['title'] + "(" + it_json[3]['date'] + ")\n" + it_json[3]['url'] + "\n\n5. " + it_json[4]['title'] + "(" + it_json[4]['date'] + ")\n" + it_json[4]['url']
                             }
                         }
                     ]
