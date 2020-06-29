@@ -3,31 +3,56 @@ import os
 import json
 import sys
 
+def loadJson_it():
+    with open('ithome.json','r',encoding = 'utf-8') as file:
+        return json.load(file)
+
 def loadJson():
     with open('corona.json','r',encoding = 'utf-8') as file:
         return json.load(file)
 
+it_json = loadJson_it()
 corona_json = loadJson()
-
-message = {
-                    "version" : "2.0",
-                    "template" : {
-                        "outputs" : [
-                            {
-                                "simpleText" : {
-                                    "text" : "1. " + corona_json[0]['text'] + "(" + corona_json[0]['date'] + ")\n" + corona_json[0]['link']             
-                                }
-                            }
-                        ]
-                    }
-                }
-
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
+@app.route('/ithome', methods = ['POST'])
+def ithome():
+    content = request.get_json()
+    content = content['userRequest']
+    content = content['utterance']
+
+    if  content == u"학과 공지":
+     response_data = {
+         "version" : "2.0",
+            "template" : {
+             "outputs" : [
+                 {
+                        "simpleText" : {
+                         "text" : "1. " + corona_json[0]['title'] + "(" + corona_json[0]['date'] + ")\n" + corona_json[0]['url'] + "\n\n2. " + corona_json[1]['title'] + "(" + corona_json[1]['date'] + ")\n" + corona_json[1]['url'] + "\n\n3. " + corona_json[2]['title'] + "(" + corona_json[2]['date'] + ")\n" + corona_json[2]['url'] + "\n\n4. " + corona_json[3]['title'] + "(" + corona_json[3]['date'] + ")\n" + corona_json[3]['url'] + "\n\n5. " + corona_json[4]['title'] + "(" + corona_json[4]['date'] + ")\n" + corona_json[4]['url']
+                            }
+                        }
+                    ]
+                }
+            }
+    else :
+        dataSend = {
+            "version": "2.0",
+            "template": {
+                "outputs": [
+                    {
+                        "simpleText":{
+                            "text" : "아직 공부하고있습니다."
+                        }
+                    }
+                ]
+            }
+        }
+    return jsonify(response_data)
+
 @app.route('/corona', methods = ['POST'])
-def message():
+def corona():
     content = request.get_json()
     content = content['userRequest']
     content = content['utterance']
