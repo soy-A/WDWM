@@ -1,6 +1,12 @@
 from selenium import webdriver
 import json
 import threading
+
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
+
 driver = webdriver.Chrome(executable_path = '/workspace/chromedriver', options = options)
 
 from collections import OrderedDict
