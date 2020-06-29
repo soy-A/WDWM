@@ -12,7 +12,7 @@ notice_dict = []
 new_dict = []
 
 
-def output_noitce(postnum):
+def output_notice(postnum):
     text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(postnum)).text
     print("제목 :",text)
     date = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[5]'%(postnum)).text
@@ -20,7 +20,7 @@ def output_noitce(postnum):
     link = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(postnum)).get_attribute("href")
     print(link)
     global noitce_dict
-    noitce_dict.append({'text':text, 'date':date, 'link':link})    
+    notice_dict.append({'text':text, 'date':date, 'link':link})    
 
 
 def output_new(postnum):
@@ -88,5 +88,5 @@ def toJson_new(corona_json):
         json.dump( corona_json,file,ensure_ascii=False,indent='\t')
 
 notice(1)
-toJson_noitce(noitce_dict)
+toJson_notice(notice_dict)
 toJson_new(new_dict)
