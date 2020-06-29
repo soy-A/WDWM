@@ -34,8 +34,6 @@ def newpost(pagenum,postnum):
             postnum+=1
             new+=1
     return pagenum,postnum
-    #if new==0:
-    #    lastpost(pagenum,postnum+4)
 
 def lastpost(pagenum,postnum):
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
@@ -68,7 +66,6 @@ def notice(pagenum):
         if notice=='공지글' and postnum<len(th):
             output(postnum)
             postnum+=1
-    #newpost(pagenum,postnum)
     return postnum,pagenum
 
 
