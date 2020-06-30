@@ -1,25 +1,37 @@
 import json
 from selenium import webdriver
 
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome('C:/chromedriver.exe')
+driver = webdriver.Chrome(executable_path = 'C:/Users/김자연/Desktop/setups/chromedriver_win32/chromedriver.exe',options = options)
 
-corona_dict = {}
-i = 0
-global pagenum_,postnum_
+notice_dict = []
+new_dict = []
 
-def output(postnum):
+
+def output_notice(postnum):
     text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(postnum)).text
     print("제목 :",text)
     date = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[5]'%(postnum)).text
     print("게시일 :",date)
     link = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(postnum)).get_attribute("href")
     print(link)
-    global corona_dict
-    global i
-    corona_dict[i] = {'text':text, 'date':date, 'link':link}    
-    i = i+1
+    global noitce_dict
+    notice_dict.append({'text':text, 'date':date, 'link':link})    
 
+
+def output_new(postnum):
+    text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(postnum)).text
+    print("제목 :",text)
+    date = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[5]'%(postnum)).text
+    print("게시일 :",date)
+    link = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(postnum)).get_attribute("href")
+    print(link)
+    global new_dict
+    new_dict.append({'text':text, 'date':date, 'link':link})  
 
 
 def newpost(pagenum,postnum):
@@ -30,31 +42,39 @@ def newpost(pagenum,postnum):
     for i in th:
         img = i.get_attribute('alt')
         if img=='새글' and postnum<len(th): 
-            output(postnum)
+            output_new(postnum)
             postnum+=1
             new+=1
-    return pagenum,postnum
+    if new<5:
+        lastpost(pagenum,postnum,5-new)
 
-def lastpost(pagenum,postnum):
+def lastpost(pagenum,postnum,remainpost=5):
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
     nextpagepost=0
+    #postnum=postnum-remainpost
+    print("last in postnum : ",postnum)
+    print("remainpost : ",remainpost)
     if postnum>5:
-        #nextpagepost = 5-(9-postnum-1)
-        nextpagepost=5-(9-postnum+1)
-        for i in range(postnum,10):
-            output(postnum)
-            postnum+=1
+        nextpagepost = 5-(9-postnum+1)
+        if remainpost>0:
+            nextpagepost = 5-(9-remainpost+1)
+            for i in range(postnum,remainpost+postnum):
+                output_new(postnum)
+                postnum+=1
+
+        else:
+            for i in range(postnum,10):
+                output_new(postnum)
+                postnum+=1
         driver.find_element_by_xpath('//*[@id="print_area"]/div[2]/a[%d]'%(pagenum+1)).click()
         postnum=0
         for i in range(postnum,nextpagepost):
-            output(postnum+1)
+            output_new(postnum+1)
             postnum+=1
     else:
-        for i in range(5):
-            output(postnum+i)
-
-
+        for i in range(remainpost):
+            output_new(postnum+i)
 
 def notice(pagenum):
     postnum=1
@@ -64,21 +84,19 @@ def notice(pagenum):
     for i in th:
         notice = i.get_attribute('alt')
         if notice=='공지글' and postnum<len(th):
-            output(postnum)
+            output_notice(postnum)
             postnum+=1
-    return postnum,pagenum
+    newpost(pagenum,postnum)
+
+def toJson_notice(corona_json):
+    with open('corona_notice.json','w',encoding='utf-8') as file:
+        json.dump( corona_json,file,ensure_ascii=False,indent='\t')
 
 
-def toJson(corona_dict):
-    with open('corona.json','w',encoding='utf-8') as file:
-        json.dump( corona_dict,file,ensure_ascii=False,indent='\t')
+def toJson_new(corona_json):
+    with open('corona_new.json','w',encoding='utf-8') as file:
+        json.dump( corona_json,file,ensure_ascii=False,indent='\t')
 
-
-print("[고정공지]\n")
-postnum_,pagenum_=notice(1)
-print("\n\n[new 공지]\n")
-pagetnum_,postnum_=newpost(pagenum_,postnum_)
-print("\n\n[최근공지]\n")
-lastpost(pagenum_,postnum_)
-
-toJson(corona_dict)
+notice(1)
+toJson_notice(notice_dict)
+toJson_new(new_dict)
