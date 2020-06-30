@@ -15,14 +15,116 @@ def loadJson_new():
     with open('corona_new.json','r',encoding = 'utf-8') as file:
         return json.load(file)
 
+def loadJson_data():
+    with open('data.json','r',encoding = 'utf-8') as file:
+        return json.load(file)
+
+def loadJson_creative():
+    with open('creative.json','r',encoding = 'utf-8') as file:
+        return json.load(file)
+
+def loadJson_cpp():
+    with open('cpp.json','r',encoding = 'utf-8') as file:
+        return json.load(file)
+
+def loadJson_electrical():
+    with open('electrical.json','r',encoding = 'utf-8') as file:
+        return json.load(file)
+
+def loadJson_global():
+    with open('global.json','r',encoding = 'utf-8') as file:
+        return json.load(file)
+
+def loadJson_DMath():
+    with open('DMath.json','r',encoding = 'utf-8') as file:
+        return json.load(file)
 
 it_json = loadJson_it()
 corona_notice_json = loadJson_notice()
 corona_new_json = loadJson_new()
+data_json = loadJson_data()
+creative_json = loadJson_creative()
+cpp_json = loadJson_cpp()
+electrical_json = loadJson_electrical()
+global_json = loadJson_global()
+DMath_json = loadJson_DMath()
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
+@app.route('assign', methods = ['POST'])
+def assign():
+    content = request.get_json()
+    content = content['userRequest']
+    content = content['utterance']
+
+    if content == u"전부":
+        response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< 이산수학 과제 >\n과제명 :  " + DMath_json[0]['title'] + "\n제출기한 : " + DMath_json[0]['date'] +"\n\n< c++프로그래밍 과제 >\n과제명 : " + cpp_json[0]['title'] + "\n제출기한 : " + cpp_json[0]['date'] + "\n\n< 자료구조 과제 >\n과제명 : " + data_json[0]['title'] + "\n제출기한 : " + data_json[0]['date'] + "\n\n< 전기전자기초실험 과제 >\n과제명 : " + electrical_json[0]['title'] + "\n제출기한 : " + electrical_json[0]['date'] + "\n\n과제명 :  " + electrical_json[1]['title'] + "\n제출기한 : " + electrical_json[1]['date'] + "\n\n과제명 :  " + electrical_json[2]['title'] + "\n제출기한 : " + electrical_json[2]['date'] + "\n\n< 창의적it공학설계입문 과제 >\n과제명 : " + creative_json[0]['title'] + "\n제출기한 : " + creative_json[0]['date'] + "\n\n< 글로벌공학윤리 과제 >\n과제명 : " + global_json[0]['title'] + "\n제출기한 : " + global_json[0]['date']
+                            }}]}}
+    
+    elif content == u"이산수학":
+        response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< 이산수학 과제 >\n "
+                            }}]}}
+    elif content == u"자료구조":
+        response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< 자료구조 과제 >\n과제명 :  " + data_json[0]['title'] + "\n제출기한 : " + data_json[0]['date']
+                            }}]}}
+    elif content == u"c++프로그래밍":
+        response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< c++프로그래밍 과제 >\n과제명 :  " + cpp_json[0]['title'] + "\n제출기한 : " + cpp_json[0]['date']
+                            }}]}}
+    elif content == u"전기전자기초실험":
+                response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< 전기전자기초실험 과제 >\n과제명 :  " + electrical_json[0]['title'] + "\n제출기한 : " + electrical_json[0]['date'] + "\n\n과제명 :  " + electrical_json[1]['title'] + "\n제출기한 : " + electrical_json[1]['date'] + "\n\n과제명 :  " + electrical_json[2]['title'] + "\n제출기한 : " + electrical_json[2]['date']
+                            }}]}}
+
+    elif content == u"글로벌공학윤리":
+                response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< 글로벌공학윤리 과제 >\n과제명 :  " + global_json[0]['title'] + "\n제출기한 : " + global_json[0]['date']
+                            }}]}}
+
+    elif content == u"창의적it공학설계입문":
+                response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< 전기전자기초실험 과제 >\n과제명 :  " + creative_json[0]['title'] + "\n제출기한 : " + creative_json[0]['date']
+                            }}]}}
+    return jsonify(response_data)
 @app.route('/ithome', methods = ['POST'])
 def ithome():
     content = request.get_json()
@@ -134,4 +236,3 @@ def corona():
 
 if __name__ == "__main__":              
     app.run(host="0.0.0.0", port="8080",debug=True)
-
