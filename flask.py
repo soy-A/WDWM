@@ -65,7 +65,7 @@ def assign():
                     "outputs" : [
                         {
                             "simpleText" : {
-                                "text" : "< 이산수학 과제 >\n과제명 :  " + DMath_json[0]['title'] + "\n제출기한 : " + DMath_json[0]['date'] +"\n\n< c++프로그래밍 과제 >\n과제명 : " + cpp_json[0]['title'] + "\n제출기한 : " + cpp_json[0]['date'] + "\n\n< 자료구조 과제 >\n과제명 : " + data_json[0]['title'] + "\n제출기한 : " + data_json[0]['date'] + "\n\n< 전기전자기초실험 과제 >\n과제명 : " + electrical_json[0]['title'] + "\n제출기한 : " + electrical_json[0]['date'] + "\n\n과제명 :  " + electrical_json[1]['title'] + "\n제출기한 : " + electrical_json[1]['date'] + "\n\n과제명 :  " + electrical_json[2]['title'] + "\n제출기한 : " + electrical_json[2]['date'] + "\n\n< 창의적it공학설계입문 과제 >\n과제명 : " + creative_json[0]['title'] + "\n제출기한 : " + creative_json[0]['date'] + "\n\n< 글로벌공학윤리 과제 >\n과제명 : " + global_json[0]['title'] + "\n제출기한 : " + global_json[0]['date']
+                                "text" : "< 이산수학 과제 >\n과제명 :  " + DMath_json[7]['title'] + "\n제출기한 : " + DMath_json[7]['date'] +"\n\n< c++프로그래밍 과제 >\n과제명 : " + cpp_json[0]['title'] + "\n제출기한 : " + cpp_json[0]['date'] + "\n\n< 자료구조 과제 >\n과제명 : " + data_json[0]['title'] + "\n제출기한 : " + data_json[0]['date'] + "\n\n< 전기전자기초실험 과제 >\n과제명 : " + electrical_json[0]['title'] + "\n제출기한 : " + electrical_json[0]['date'] + "\n\n과제명 :  " + electrical_json[1]['title'] + "\n제출기한 : " + electrical_json[1]['date'] + "\n\n과제명 :  " + electrical_json[2]['title'] + "\n제출기한 : " + electrical_json[2]['date'] + "\n\n< 창의적it공학설계입문 과제 >\n과제명 : " + creative_json[0]['title'] + "\n제출기한 : " + creative_json[0]['date'] + "\n\n< 글로벌공학윤리 과제 >\n과제명 : " + global_json[0]['title'] + "\n제출기한 : " + global_json[0]['date']
                             }}]}}
     
     elif content == u"이산수학":
@@ -75,7 +75,7 @@ def assign():
                     "outputs" : [
                         {
                             "simpleText" : {
-                                "text" : "< 이산수학 과제 >\n "
+                                "text" : "< 이산수학 과제 >\n과제명 :  " + DMath_json[7]['title'] + "\n제출기한 : " + DMath_json[7]['date']
                             }}]}}
     elif content == u"자료구조":
         response_data = {
@@ -160,7 +160,7 @@ def corona():
                     "outputs" : [
                         {
                             "simpleText" : {
-                                "text" : "< 필수공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] + "\n\n2. " + corona_notice_json[1]['text'] + "(" + corona_notice_json[1]['date'] + ")\n" + corona_notice_json[1]['link'] + "\n\n3. " + corona_notice_json[2]['text'] + "(" + corona_notice_json[2]['date'] + ")\n" + corona_notice_json[2]['link'] + "\n\n4. " + corona_notice_json[3]['text'] + "(" + corona_notice_json[3]['date'] + ")\n" + corona_notice_json[3]['link'] + "\n\n5. " + corona_notice_json[4]['text'] + "(" + corona_notice_json[4]['date'] + ")\n" + corona_notice_json[4]['link']        
+                                "text" : "< 필독공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] + "\n\n2. " + corona_notice_json[1]['text'] + "(" + corona_notice_json[1]['date'] + ")\n" + corona_notice_json[1]['link'] + "\n\n3. " + corona_notice_json[2]['text'] + "(" + corona_notice_json[2]['date'] + ")\n" + corona_notice_json[2]['link'] + "\n\n4. " + corona_notice_json[3]['text'] + "(" + corona_notice_json[3]['date'] + ")\n" + corona_notice_json[3]['link'] + "\n\n5. " + corona_notice_json[4]['text'] + "(" + corona_notice_json[4]['date'] + ")\n" + corona_notice_json[4]['link']        
                             }},
                         {
                             "simpleText" : {
@@ -174,7 +174,7 @@ def corona():
                     "outputs" : [
                         {
                             "simpleText" : {
-                                "text" : "< 필수공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] + "\n\n2. " + corona_notice_json[1]['text'] + "(" + corona_notice_json[1]['date'] + ")\n" + corona_notice_json[1]['link'] + "\n\n3. " + corona_notice_json[2]['text'] + "(" + corona_notice_json[2]['date'] + ")\n" + corona_notice_json[2]['link'] + "\n\n4. " + corona_notice_json[3]['text'] + "(" + corona_notice_json[3]['date'] + ")\n" + corona_notice_json[3]['link']      
+                                "text" : "< 필독공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] + "\n\n2. " + corona_notice_json[1]['text'] + "(" + corona_notice_json[1]['date'] + ")\n" + corona_notice_json[1]['link'] + "\n\n3. " + corona_notice_json[2]['text'] + "(" + corona_notice_json[2]['date'] + ")\n" + corona_notice_json[2]['link'] + "\n\n4. " + corona_notice_json[3]['text'] + "(" + corona_notice_json[3]['date'] + ")\n" + corona_notice_json[3]['link']      
                             }},
                         {
                             "simpleText" : {
@@ -188,7 +188,7 @@ def corona():
                     "outputs" : [
                         {
                             "simpleText" : {
-                                "text" : "< 필수공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] + "\n\n2. " + corona_notice_json[1]['text'] + "(" + corona_notice_json[1]['date'] + ")\n" + corona_notice_json[1]['link'] + "\n\n3. " + corona_notice_json[2]['text'] + "(" + corona_notice_json[2]['date'] + ")\n" + corona_notice_json[2]['link'] 
+                                "text" : "< 필독공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] + "\n\n2. " + corona_notice_json[1]['text'] + "(" + corona_notice_json[1]['date'] + ")\n" + corona_notice_json[1]['link'] + "\n\n3. " + corona_notice_json[2]['text'] + "(" + corona_notice_json[2]['date'] + ")\n" + corona_notice_json[2]['link'] 
                             }},
                         {
                             "simpleText" : {
@@ -202,7 +202,7 @@ def corona():
                     "outputs" : [
                         {
                             "simpleText" : {
-                                "text" : "< 필수공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] + "\n\n2. " + corona_notice_json[1]['text'] + "(" + corona_notice_json[1]['date'] + ")\n" + corona_notice_json[1]['link'] 
+                                "text" : "< 필독공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] + "\n\n2. " + corona_notice_json[1]['text'] + "(" + corona_notice_json[1]['date'] + ")\n" + corona_notice_json[1]['link'] 
                             }},
                         {
                             "simpleText" : {
@@ -216,7 +216,7 @@ def corona():
                     "outputs" : [
                         {
                             "simpleText" : {
-                                "text" : "< 필수공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] 
+                                "text" : "< 필독공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] 
                             }},
                         {
                             "simpleText" : {
