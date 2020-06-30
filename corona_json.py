@@ -32,36 +32,26 @@ def output_new(postnum):
     print(link)
     global new_dict
     new_dict.append({'text':text, 'date':date, 'link':link})  
-
-
+    
 def newpost(pagenum,postnum):
-    url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
-    driver.get(url)
-    th = driver.find_element_by_class_name('page_list').find_elements_by_tag_name('img')
-    new = 0
-    for i in th:
-        img = i.get_attribute('alt')
-        if img=='새글' and postnum<len(th): 
-            output_new(postnum)
-            postnum+=1
-            new+=1
-    if new==0:
-        lastpost(pagenum,postnum)
-
-def lastpost(pagenum,postnum):
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
     nextpagepost=0
     if postnum>5:
-        nextpagepost = 5-(9-postnum-1)
-        for i in range(postnum,10):
-            output_new(postnum)
-            postnum+=1
-        driver.find_element_by_xpath('//*[@id="print_area"]/div[2]/a[%d]'%(pagenum+1)).click()
-        postnum=0
         for i in range(postnum,nextpagepost):
-            output_new(postnum+1)
-            postnum+=1
+                if postnum<9:
+                    output_new(postnum+1)
+                    postnum+=1
+
+        else:
+            for i in range(postnum,10):
+                output_new(postnum)
+                postnum+=1
+            driver.find_element_by_xpath('//*[@id="print_area"]/div[2]/a[%d]'%(pagenum+1)).click()
+            postnum=0
+            for i in range(postnum,nextpagepost):
+                output_new(postnum+1)
+                postnum+=1
     else:
         for i in range(5):
             output_new(postnum+i)
