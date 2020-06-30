@@ -6,7 +6,7 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome(executable_path = 'C:/chromedriver.exe',options = options)
+driver = webdriver.Chrome(executable_path = '/workspace/chromedriver',options = options)
 
 notice_dict = []
 new_dict = []
@@ -32,7 +32,7 @@ def output_new(postnum):
     print(link)
     global new_dict
     new_dict.append({'text':text, 'date':date, 'link':link})  
-
+    
 def newpost(pagenum,postnum):
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
