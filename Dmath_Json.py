@@ -40,8 +40,7 @@ def Dmath():
         if subjectName[i] == "이산수학":
             driver.execute_script(subjectURL[i])
             time.sleep(2)
-            driver.find_element_by_xpath(
-                '//*[@id="center2"]/div/div[2]/div/div[5]/div[2]/table/thead/tr/th[1]/a').send_keys('\n')  # 레포트에 들어감
+            driver.find_element_by_xpath('//*[@id="center2"]/div/div[2]/div/div[5]/div[2]/table/thead/tr/th[1]/a').send_keys('\n')  # 레포트에 들어감
             time.sleep(2)
             workclass = driver.find_elements_by_class_name('btr')
             n = 1
@@ -51,6 +50,7 @@ def Dmath():
                 deadline = driver.find_element_by_xpath('//*[@id="borderB"]/tbody/tr[%d]/td[3]' % line).text
                 submit = driver.find_element_by_xpath('//*[@id="borderB"]/tbody/tr[%d]/td[4]' % line).text
                 print(worktitle, deadline, submit)
+		DM_dict.append({'title': worktitle, 'date': deadline, 'submit': submit})
                 n += 5
 
             driver.back()
