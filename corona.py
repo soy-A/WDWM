@@ -6,7 +6,7 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome(executable_path = 'C:/Users/김자연/Desktop/setups/chromedriver_win32/chromedriver.exe',options = options)
+driver = webdriver.Chrome(executable_path = 'C:/chromedriver.exe',options = options)
 
 notice_dict = []
 new_dict = []
