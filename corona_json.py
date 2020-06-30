@@ -8,50 +8,53 @@ options.add_argument('--disable-dev-shm-usage')
 
 driver = webdriver.Chrome(executable_path = '/workspace/chromedriver',options = options)
 
-corona_dict = []
+notice_dict = []
+new_dict = []
 
-def output(postnum):
+
+def output_notice(postnum):
     text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(postnum)).text
     print("제목 :",text)
     date = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[5]'%(postnum)).text
     print("게시일 :",date)
     link = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(postnum)).get_attribute("href")
     print(link)
-    global corona_dict
-    global i
-    corona_dict.append({'text':text, 'date':date, 'link':link})    
+    global noitce_dict
+    notice_dict.append({'text':text, 'date':date, 'link':link})    
 
+
+def output_new(postnum):
+    text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(postnum)).text
+    print("제목 :",text)
+    date = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[5]'%(postnum)).text
+    print("게시일 :",date)
+    link = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a'%(postnum)).get_attribute("href")
+    print(link)
+    global new_dict
+    new_dict.append({'text':text, 'date':date, 'link':link})  
+    
 def newpost(pagenum,postnum):
-    url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
-    driver.get(url)
-    th = driver.find_element_by_class_name('page_list').find_elements_by_tag_name('img')
-    new = 0
-    for i in th:
-        img = i.get_attribute('alt')
-        if img=='새글' and postnum<len(th): 
-            output(postnum)
-            postnum+=1
-            new+=1
-    if new==0:
-        lastpost(pagenum,postnum)
-
-def lastpost(pagenum,postnum):
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
     nextpagepost=0
     if postnum>5:
-        nextpagepost = 5-(9-postnum-1)
-        for i in range(postnum,10):
-            output(postnum)
-            postnum+=1
-        driver.find_element_by_xpath('//*[@id="print_area"]/div[2]/a[%d]'%(pagenum+1)).click()
-        postnum=0
         for i in range(postnum,nextpagepost):
-            output(postnum+1)
-            postnum+=1
+                if postnum<9:
+                    output_new(postnum+1)
+                    postnum+=1
+
+        else:
+            for i in range(postnum,10):
+                output_new(postnum)
+                postnum+=1
+            driver.find_element_by_xpath('//*[@id="print_area"]/div[2]/a[%d]'%(pagenum+1)).click()
+            postnum=0
+            for i in range(postnum,nextpagepost):
+                output_new(postnum+1)
+                postnum+=1
     else:
         for i in range(5):
-            output(postnum+i)
+            output_new(postnum+i)
 
 def notice(pagenum):
     postnum=1
@@ -61,13 +64,19 @@ def notice(pagenum):
     for i in th:
         notice = i.get_attribute('alt')
         if notice=='공지글' and postnum<len(th):
-            output(postnum)
+            output_notice(postnum)
             postnum+=1
     newpost(pagenum,postnum)
 
-def toJson(corona_json):
-    with open('corona.json','w',encoding='utf-8') as file:
+def toJson_notice(corona_json):
+    with open('corona_notice.json','w',encoding='utf-8') as file:
+        json.dump( corona_json,file,ensure_ascii=False,indent='\t')
+
+
+def toJson_new(corona_json):
+    with open('corona_new.json','w',encoding='utf-8') as file:
         json.dump( corona_json,file,ensure_ascii=False,indent='\t')
 
 notice(1)
-toJson(corona_dict)
+toJson_notice(notice_dict)
+toJson_new(new_dict)
