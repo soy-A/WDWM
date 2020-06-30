@@ -7,12 +7,18 @@ def loadJson_it():
     with open('ithome.json','r',encoding = 'utf-8') as file:
         return json.load(file)
 
-def loadJson():
-    with open('corona.json','r',encoding = 'utf-8') as file:
+def loadJson_notice():
+    with open('corona_notice.json','r',encoding = 'utf-8') as file:
         return json.load(file)
 
+def loadJson_new():
+    with open('corona_new.json','r',encoding = 'utf-8') as file:
+        return json.load(file)
+
+
 it_json = loadJson_it()
-corona_json = loadJson()
+corona_notice_json = loadJson_notice()
+corona_new_json = loadJson_new()
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -36,19 +42,6 @@ def ithome():
                     ]
                 }
             }
-    else :
-        dataSend = {
-            "version": "2.0",
-            "template": {
-                "outputs": [
-                    {
-                        "simpleText":{
-                            "text" : "아직 공부하고있습니다."
-                        }
-                    }
-                ]
-            }
-        }
     return jsonify(response_data)
 
 @app.route('/corona', methods = ['POST'])
@@ -58,32 +51,87 @@ def corona():
     content = content['utterance']
 
     if  content == u"코로나 공지":
-     response_data = {
-         "version" : "2.0",
-            "template" : {
-             "outputs" : [
-                 {
-                        "simpleText" : {
-                         "text" : "1. " + corona_json[0]['text'] + "(" + corona_json[0]['date'] + ")\n" + corona_json[0]['link'] + "\n\n2. " + corona_json[1]['text'] + "(" + corona_json[1]['date'] + ")\n" + corona_json[1]['link'] + "\n\n3. " + corona_json[2]['text'] + "(" + corona_json[2]['date'] + ")\n" + corona_json[2]['link'] + "\n\n4. " + corona_json[3]['text'] + "(" + corona_json[3]['date'] + ")\n" + corona_json[3]['link'] + "\n\n5. " + corona_json[4]['text'] + "(" + corona_json[4]['date'] + ")\n" + corona_json[4]['link']        
-                            }
-                        }
-                    ]
-                }
-            }
-    else :
-        dataSend = {
-            "version": "2.0",
-            "template": {
-                "outputs": [
-                    {
-                        "simpleText":{
-                            "text" : "아직 공부하고있습니다."
-                        }
-                    }
-                ]
-            }
-        }
+        if len(corona_notice_json) > 5:
+            response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< 필수공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] + "\n\n2. " + corona_notice_json[1]['text'] + "(" + corona_notice_json[1]['date'] + ")\n" + corona_notice_json[1]['link'] + "\n\n3. " + corona_notice_json[2]['text'] + "(" + corona_notice_json[2]['date'] + ")\n" + corona_notice_json[2]['link'] + "\n\n4. " + corona_notice_json[3]['text'] + "(" + corona_notice_json[3]['date'] + ")\n" + corona_notice_json[3]['link'] + "\n\n5. " + corona_notice_json[4]['text'] + "(" + corona_notice_json[4]['date'] + ")\n" + corona_notice_json[4]['link']        
+                            }},
+                        {
+                            "simpleText" : {
+                                "text" : "< 최신공지 >\n1. " + corona_new_json[0]['text'] + "(" + corona_new_json[0]['date'] + ")\n" + corona_new_json[0]['link'] + "\n\n2. " + corona_new_json[1]['text'] + "(" + corona_new_json[1]['date'] + ")\n" + corona_new_json[1]['link'] + "\n\n3. " + corona_new_json[2]['text'] + "(" + corona_new_json[2]['date'] + ")\n" + corona_new_json[2]['link'] + "\n\n4. " + corona_new_json[3]['text'] + "(" + corona_new_json[3]['date'] + ")\n" + corona_new_json[3]['link'] + "\n\n5. " + corona_new_json[4]['text'] + "(" + corona_new_json[4]['date'] + ")\n" + corona_new_json[4]['link']        
+                            }}
+                        ]}}
+        elif len(corona_notice_json) == 4:
+            response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< 필수공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] + "\n\n2. " + corona_notice_json[1]['text'] + "(" + corona_notice_json[1]['date'] + ")\n" + corona_notice_json[1]['link'] + "\n\n3. " + corona_notice_json[2]['text'] + "(" + corona_notice_json[2]['date'] + ")\n" + corona_notice_json[2]['link'] + "\n\n4. " + corona_notice_json[3]['text'] + "(" + corona_notice_json[3]['date'] + ")\n" + corona_notice_json[3]['link']      
+                            }},
+                        {
+                            "simpleText" : {
+                                "text" : "< 최신공지 >\n1. " + corona_new_json[0]['text'] + "(" + corona_new_json[0]['date'] + ")\n" + corona_new_json[0]['link'] + "\n\n2. " + corona_new_json[1]['text'] + "(" + corona_new_json[1]['date'] + ")\n" + corona_new_json[1]['link'] + "\n\n3. " + corona_new_json[2]['text'] + "(" + corona_new_json[2]['date'] + ")\n" + corona_new_json[2]['link'] + "\n\n4. " + corona_new_json[3]['text'] + "(" + corona_new_json[3]['date'] + ")\n" + corona_new_json[3]['link'] + "\n\n5. " + corona_new_json[4]['text'] + "(" + corona_new_json[4]['date'] + ")\n" + corona_new_json[4]['link']        
+                            }}
+                        ]}}
+        elif len(corona_notice_json) == 3:
+            response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< 필수공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] + "\n\n2. " + corona_notice_json[1]['text'] + "(" + corona_notice_json[1]['date'] + ")\n" + corona_notice_json[1]['link'] + "\n\n3. " + corona_notice_json[2]['text'] + "(" + corona_notice_json[2]['date'] + ")\n" + corona_notice_json[2]['link'] 
+                            }},
+                        {
+                            "simpleText" : {
+                                "text" : "< 최신공지 >\n1. " + corona_new_json[0]['text'] + "(" + corona_new_json[0]['date'] + ")\n" + corona_new_json[0]['link'] + "\n\n2. " + corona_new_json[1]['text'] + "(" + corona_new_json[1]['date'] + ")\n" + corona_new_json[1]['link'] + "\n\n3. " + corona_new_json[2]['text'] + "(" + corona_new_json[2]['date'] + ")\n" + corona_new_json[2]['link'] + "\n\n4. " + corona_new_json[3]['text'] + "(" + corona_new_json[3]['date'] + ")\n" + corona_new_json[3]['link'] + "\n\n5. " + corona_new_json[4]['text'] + "(" + corona_new_json[4]['date'] + ")\n" + corona_new_json[4]['link']        
+                            }}
+                        ]}}
+        elif len(corona_notice_json) == 2:
+            response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< 필수공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] + "\n\n2. " + corona_notice_json[1]['text'] + "(" + corona_notice_json[1]['date'] + ")\n" + corona_notice_json[1]['link'] 
+                            }},
+                        {
+                            "simpleText" : {
+                                "text" : "< 최신공지 >\n1. " + corona_new_json[0]['text'] + "(" + corona_new_json[0]['date'] + ")\n" + corona_new_json[0]['link'] + "\n\n2. " + corona_new_json[1]['text'] + "(" + corona_new_json[1]['date'] + ")\n" + corona_new_json[1]['link'] + "\n\n3. " + corona_new_json[2]['text'] + "(" + corona_new_json[2]['date'] + ")\n" + corona_new_json[2]['link'] + "\n\n4. " + corona_new_json[3]['text'] + "(" + corona_new_json[3]['date'] + ")\n" + corona_new_json[3]['link'] + "\n\n5. " + corona_new_json[4]['text'] + "(" + corona_new_json[4]['date'] + ")\n" + corona_new_json[4]['link']        
+                            }}
+                        ]}}
+        elif len(corona_notice_json) == 1:
+            response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< 필수공지 >\n1. " + corona_notice_json[0]['text'] + "(" + corona_notice_json[0]['date'] + ")\n" + corona_notice_json[0]['link'] 
+                            }},
+                        {
+                            "simpleText" : {
+                                "text" : "< 최신공지 >\n1. " + corona_new_json[0]['text'] + "(" + corona_new_json[0]['date'] + ")\n" + corona_new_json[0]['link'] + "\n\n2. " + corona_new_json[1]['text'] + "(" + corona_new_json[1]['date'] + ")\n" + corona_new_json[1]['link'] + "\n\n3. " + corona_new_json[2]['text'] + "(" + corona_new_json[2]['date'] + ")\n" + corona_new_json[2]['link'] + "\n\n4. " + corona_new_json[3]['text'] + "(" + corona_new_json[3]['date'] + ")\n" + corona_new_json[3]['link'] + "\n\n5. " + corona_new_json[4]['text'] + "(" + corona_new_json[4]['date'] + ")\n" + corona_new_json[4]['link']        
+                            }}
+                        ]}}
+        else:
+            response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< 최신공지 >\n1. " + corona_new_json[0]['text'] + "(" + corona_new_json[0]['date'] + ")\n" + corona_new_json[0]['link'] + "\n\n2. " + corona_new_json[1]['text'] + "(" + corona_new_json[1]['date'] + ")\n" + corona_new_json[1]['link'] + "\n\n3. " + corona_new_json[2]['text'] + "(" + corona_new_json[2]['date'] + ")\n" + corona_new_json[2]['link'] + "\n\n4. " + corona_new_json[3]['text'] + "(" + corona_new_json[3]['date'] + ")\n" + corona_new_json[3]['link'] + "\n\n5. " + corona_new_json[4]['text'] + "(" + corona_new_json[4]['date'] + ")\n" + corona_new_json[4]['link']        
+                            }}]}}
     return jsonify(response_data)
 
 if __name__ == "__main__":              
     app.run(host="0.0.0.0", port="8080",debug=True)
+
