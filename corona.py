@@ -6,7 +6,7 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome(executable_path = 'C:/Users/김자연/Desktop/setups/chromedriver_win32/chromedriver.exe',options = options)
+driver = webdriver.Chrome(executable_path = 'C:/chromedriver.exe',options = options)
 
 notice_dict = []
 new_dict = []
@@ -37,7 +37,6 @@ def newpost(pagenum,postnum):
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
     nextpagepost=0
-    print("last in postnum : ",postnum)
     if postnum>5:
         for i in range(postnum,nextpagepost):
                 if postnum<9:
@@ -58,7 +57,6 @@ def newpost(pagenum,postnum):
             output_new(postnum+i)
 
 def notice(pagenum):
-    print("고정 공지\n")
     postnum=1
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
