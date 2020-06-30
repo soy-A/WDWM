@@ -1,5 +1,6 @@
 from selenium import webdriver
 import json
+import threading
 
 options = webdriver.ChromeOptions()
 options.add_argument('--headless')
@@ -138,9 +139,19 @@ def GlobaltoJson(global_json):
     with open('global.json', 'w', encoding='utf-8') as file:
         json.dump(global_json, file, ensure_ascii=False, indent='\t')
 
-lms()
-DatatoJson(data_dict)
-CpptoJson(cpp_dict)
-CreativetoJson(creative_dict)
-ElectricaltoJson(electrical_dict)
-GlobaltoJson(global_dict)
+class Repeat:
+
+    def __init__(self):
+        pass
+
+    def Relms(self):
+        lms()
+        DatatoJson(data_dict)
+        CpptoJson(cpp_dict)
+        CreativetoJson(creative_dict)
+        ElectricaltoJson(electrical_dict)
+        GlobaltoJson(global_dict)
+        threading.Timer(3600, self.Relms).start()
+
+re = Repeat()
+re.Relms()
