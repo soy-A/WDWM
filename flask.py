@@ -52,7 +52,7 @@ DMath_json = loadJson_DMath()
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
-@app.route('assign', methods = ['POST'])
+@app.route('/assign', methods = ['POST'])
 def assign():
     content = request.get_json()
     content = content['userRequest']
