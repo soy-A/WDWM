@@ -8,13 +8,12 @@ options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
 driver = webdriver.Chrome(executable_path = '/workspace/chromedriver', options = options)
-driver = webdriver.Chrome('C:/Users/이미르/Downloads/chromedriver_win32_1/chromedriver.exe') #본인 chrome driver 주소
 driver.get('https://jbnu.khub.kr/')
 
-khub_dict = []
-def toJson(khub_dict):
-    with open('khub_DMath.json','w',encoding = 'utf-8') as file:
-        json.dump( khub_dict,file,ensure_ascii=False,indent='\t')
+DM_dict = []
+def toJson(DM_dict):
+    with open('DMath.json','w',encoding = 'utf-8') as file:
+        json.dump( DM_dict,file,ensure_ascii=False,indent='\t')
 
 id = #학번
 pw = #비번
