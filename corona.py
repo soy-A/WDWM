@@ -6,7 +6,7 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome(executable_path = 'C:/chromedriver.exe',options = options)
+driver = webdriver.Chrome(executable_path = 'C:/Users/김자연/Desktop/setups/chromedriver_win32/chromedriver.exe',options = options)
 
 notice_dict = []
 new_dict = []
@@ -33,50 +33,32 @@ def output_new(postnum):
     global new_dict
     new_dict.append({'text':text, 'date':date, 'link':link})  
 
-
 def newpost(pagenum,postnum):
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
-    th = driver.find_element_by_class_name('page_list').find_elements_by_tag_name('img')
-    new = 0
-    for i in th:
-        img = i.get_attribute('alt')
-        if img=='새글' and postnum<len(th): 
-            output_new(postnum)
-            postnum+=1
-            new+=1
-    if new<5:
-        lastpost(pagenum,postnum,5-new)
-
-def lastpost(pagenum,postnum,remainpost=5):
-    url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
-    driver.get(url)
     nextpagepost=0
-    #postnum=postnum-remainpost
     print("last in postnum : ",postnum)
-    print("remainpost : ",remainpost)
     if postnum>5:
-        nextpagepost = 5-(9-postnum+1)
-        if remainpost>0:
-            nextpagepost = 5-(9-remainpost+1)
-            for i in range(postnum,remainpost+postnum):
-                output_new(postnum)
-                postnum+=1
+        for i in range(postnum,nextpagepost):
+                if postnum<9:
+                    output_new(postnum+1)
+                    postnum+=1
 
         else:
             for i in range(postnum,10):
                 output_new(postnum)
                 postnum+=1
-        driver.find_element_by_xpath('//*[@id="print_area"]/div[2]/a[%d]'%(pagenum+1)).click()
-        postnum=0
-        for i in range(postnum,nextpagepost):
-            output_new(postnum+1)
-            postnum+=1
+            driver.find_element_by_xpath('//*[@id="print_area"]/div[2]/a[%d]'%(pagenum+1)).click()
+            postnum=0
+            for i in range(postnum,nextpagepost):
+                output_new(postnum+1)
+                postnum+=1
     else:
-        for i in range(remainpost):
+        for i in range(5):
             output_new(postnum+i)
 
 def notice(pagenum):
+    print("고정 공지\n")
     postnum=1
     url="http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
