@@ -16,11 +16,11 @@ minimal_mistakes_skin    : "sunrise" # "air", "aqua", "contrast", "dark", "dirt"
 
 # Site Settings
 locale                   : "ko"
-title                    : "언제만나조의 학교생활 알리미"
+title                    : "언제만나조의 IT 알리미"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
 name                     : "언제 만나조"
-description              : "언제만나조의 학교생활 알리미 만들기"
+description              : "언제만나조의 IT 알리미 만들기"
 url                      : "https://dpdms529.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "/WDWM" # the subpath of your site, e.g. "/blog"
 repository               : "dpdms529/WDWM" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -95,7 +95,7 @@ analytics:
 author:
   name             : "언제 만나조"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "**학교생활알리미 챗봇**을 제작합니다"
+  bio              : "**IT알리미 챗봇**을 제작합니다"
   location         : "전북대학교"
   email            :
   links:
