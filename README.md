@@ -6,6 +6,7 @@
 | :---: | :---: | :---: | :---: | :---: |
 | 이름 | 조예은 | 민소연 | 이미르 | 김자연 |
 | ID | dpdms529 | soy-A | lalala5772 | nature1216 |
+| branch | lms | ithome | khub | corona |
 <br/>
 
 ## 학교생활 알리미 &#127979;
@@ -26,6 +27,8 @@
 
 **'채널 추가'** 버튼을 눌러 언제 어디서나 편하게 이용해보세요!
 
+![그림1](https://user-images.githubusercontent.com/63772786/86200495-ce128f00-bb97-11ea-89ea-2f5917d1309b.png)
+
 <br/>
 
 ## 팀 홈페이지 &#128214;
@@ -42,8 +45,11 @@ https://dpdms529.github.io/WDWM/
 
 ## Requirements	&#128227;
 ```
-pip install -r requirement.txt
+pip install -r requirement.txt  #selenium 3.141.0
 ```
+
+python 3.7
+
 ### ChromeDriver 설치
 >ChromeDriver : https://sites.google.com/a/chromium.org/chromedriver/downloads
 #### 1. Chrome 버전 확인
@@ -56,3 +62,4 @@ pip install -r requirement.txt
 ```
 driver = webdriver.Chrome("C:/Users/chromedriver_win32/chromedriver.exe") #정방향 슬래시 또는 역슬래시 2개 사용
 ```
+#### Chrome 브라우저 업데이트시 Chromedriver의 버전 또한 맞춰주어야 함
