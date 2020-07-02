@@ -8,12 +8,11 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome(executable_path='/workspace/chromedriver', options=options)
-
 DM_dict = []
 
 def Dmath():
     global DM_dict
+    driver = webdriver.Chrome(executable_path='/workspace/chromedriver', options=options)
     driver.get('https://jbnu.khub.kr/')
 
     id = "201819186"
@@ -55,6 +54,7 @@ def Dmath():
             driver.back()
             driver.back()
             time.sleep(3)
+    driver.quit()
 
 def toJson(DM_dict):
     with open('DMath.json', 'w', encoding='utf-8') as file:
@@ -67,8 +67,6 @@ class Repeat:
 
     def ReDmath(self):
         Dmath()
-        driver.find_element_by_xpath('//*[@id="centerTop"]/div[2]/ul/li/div/a[4]').click()
-        driver.switch_to_alert().accept()
         toJson(DM_dict)
         threading.Timer(3600,self.ReDmath).start()
 
