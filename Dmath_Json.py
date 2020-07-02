@@ -16,8 +16,8 @@ def Dmath():
     global DM_dict
     driver.get('https://jbnu.khub.kr/')
 
-    id = "학번"
-    pw = "비번"
+    id = "201819186"
+    pw = "jsallyb8246!"
     driver.find_element_by_name('login').send_keys(id)
     driver.find_element_by_name('passwd').send_keys(pw)
     driver.find_element_by_xpath('//*[@id="loginform"]/table/tbody/tr[1]/td[2]/input').click()
@@ -62,13 +62,15 @@ def toJson(DM_dict):
 
 class Repeat:
 
-	def __init__(self):
-		pass
+    def __init__(self):
+        pass
 
-	def ReDmath(self):
-		Dmath()
-		toJson(DM_dict)
-		threading.Timer(3600,self.ReDmath).start()
+    def ReDmath(self):
+        Dmath()
+        driver.find_element_by_xpath('//*[@id="centerTop"]/div[2]/ul/li/div/a[4]').click()
+        driver.switch_to_alert().accept()
+        toJson(DM_dict)
+        threading.Timer(3600,self.ReDmath).start()
 
 re = Repeat()
 re.ReDmath()
