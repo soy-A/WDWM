@@ -52,6 +52,18 @@ DMath_json = loadJson_DMath()
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
+@app.route('/')
+def start():
+    response_data = {
+                "version" : "2.0",
+                "template" : {
+                    "outputs" : [
+                        {
+                            "simpleText" : {
+                                "text" : "< 최신공지 >\n1. " + corona_new_json[0]['text'] + "(" + corona_new_json[0]['date'] + ")\n" + corona_new_json[0]['link'] + "\n\n2. " + corona_new_json[1]['text'] + "(" + corona_new_json[1]['date'] + ")\n" + corona_new_json[1]['link'] + "\n\n3. " + corona_new_json[2]['text'] + "(" + corona_new_json[2]['date'] + ")\n" + corona_new_json[2]['link'] + "\n\n4. " + corona_new_json[3]['text'] + "(" + corona_new_json[3]['date'] + ")\n" + corona_new_json[3]['link'] + "\n\n5. " + corona_new_json[4]['text'] + "(" + corona_new_json[4]['date'] + ")\n" + corona_new_json[4]['link']        
+                            }}]}}
+    return jsonify(response_data)
+
 @app.route('/assign', methods = ['POST'])
 def assign():
     content = request.get_json()
