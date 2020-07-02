@@ -72,5 +72,6 @@ def toJson(corona_dict):
         json.dump( corona_dict,file,ensure_ascii=False,indent='\t')
 
 
+        
 notice(1)
 toJson(corona_dict)
