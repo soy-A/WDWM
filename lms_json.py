@@ -7,8 +7,6 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome(executable_path = '/workspace/chromedriver', options = options)
-
 data_dict = []
 cpp_dict = []
 creative_dict = []
@@ -16,6 +14,7 @@ electrical_dict = []
 global_dict = []
 
 def lms():
+    driver = webdriver.Chrome(executable_path = '/workspace/chromedriver', options = options)
     driver.get('https://ieilms.jbnu.ac.kr/login.php')
 
     id = '201819186'
@@ -23,7 +22,6 @@ def lms():
     driver.find_element_by_name('username').send_keys(id)
     driver.find_element_by_name('password').send_keys(pw)
     driver.find_element_by_xpath('//*[@id="region-main"]/div/div/div/div[1]/div[1]/div[2]/form/div[2]/input').click()
-    driver.get('http://ieilms.jbnu.ac.kr/')
     courseList = driver.find_element_by_class_name('course_lists').find_elements_by_tag_name('li')
     courseName = []
     courseURL = []
@@ -124,6 +122,7 @@ def lms():
                 print("과제명 : " + assign.text)
                 print("과제 제출 마감일 : " + deadline.text + "\n")
                 electrical_dict.append({'title': assign.text, 'date': deadline.text})
+    driver.quit()
 
 
 def DatatoJson(data_json):
@@ -153,7 +152,6 @@ class Repeat:
 
     def Relms(self):
         lms()
-        driver.find_element_by_xpath('//*[@id="page-header"]/nav/div/div[2]/ul/li[8]/a').click()
         DatatoJson(data_dict)
         CpptoJson(cpp_dict)
         CreativetoJson(creative_dict)
