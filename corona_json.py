@@ -94,8 +94,10 @@ class Repeat:
         pass
 
     def Recorona(self):
-        global driver
+        global driver, notice_dict,new_dict
         driver = None
+        notice_dict.clear()
+        new_dict.clear()
         notice(1)
         toJson_notice(notice_dict)
         print("notice save")
