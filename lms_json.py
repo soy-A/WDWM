@@ -151,6 +151,12 @@ class Repeat:
         pass
 
     def Relms(self):
+        global data_dict,cpp_dict,creative_dict,electrical_dict,global_dict
+        data_dict.clear()
+        cpp_dict.clear()
+        creative_dict.clear()
+        electrical_dict.clear()
+        global_dict.clear()
         lms()
         DatatoJson(data_dict)
         CpptoJson(cpp_dict)
