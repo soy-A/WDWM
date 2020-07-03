@@ -66,6 +66,8 @@ class Repeat:
         pass
 
     def ReDmath(self):
+        global DM_dict
+        DM_dict.clear()
         Dmath()
         toJson(DM_dict)
         threading.Timer(3600,self.ReDmath).start()
