@@ -33,6 +33,8 @@ class Repeat:
 		pass
 
 	def Reithome(self):
+		global it_dict
+		it_dict.clear()
 		notice()
 		toJson(it_dict)
 		threading.Timer(3600,self.Reithome).start()
