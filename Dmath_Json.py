@@ -8,16 +8,15 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome(executable_path='/workspace/chromedriver', options=options)
-
 DM_dict = []
 
 def Dmath():
     global DM_dict
+    driver = webdriver.Chrome(executable_path='/workspace/chromedriver', options=options)
     driver.get('https://jbnu.khub.kr/')
 
-    id = "학번"
-    pw = "비번"
+    id = "201819186"
+    pw = "jsallyb8246!"
     driver.find_element_by_name('login').send_keys(id)
     driver.find_element_by_name('passwd').send_keys(pw)
     driver.find_element_by_xpath('//*[@id="loginform"]/table/tbody/tr[1]/td[2]/input').click()
@@ -55,6 +54,7 @@ def Dmath():
             driver.back()
             driver.back()
             time.sleep(3)
+    driver.quit()
 
 def toJson(DM_dict):
     with open('DMath.json', 'w', encoding='utf-8') as file:
@@ -62,13 +62,15 @@ def toJson(DM_dict):
 
 class Repeat:
 
-	def __init__(self):
-		pass
+    def __init__(self):
+        pass
 
-	def ReDmath(self):
-		Dmath()
-		toJson(DM_dict)
-		threading.Timer(3600,self.ReDmath).start()
+    def ReDmath(self):
+        global DM_dict
+        DM_dict.clear()
+        Dmath()
+        toJson(DM_dict)
+        threading.Timer(3600,self.ReDmath).start()
 
 re = Repeat()
 re.ReDmath()

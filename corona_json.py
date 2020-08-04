@@ -7,13 +7,14 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome(executable_path='/workspace/chromedriver', options=options)
+driver = None
 
 notice_dict = []
 new_dict = []
 
 
 def output_notice(postnum):
+    global driver
     text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a' % (postnum)).text
     print("제목 :", text)
     date = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[5]' % (postnum)).text
@@ -26,6 +27,7 @@ def output_notice(postnum):
 
 
 def output_new(postnum):
+    global driver
     text = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[2]/span/a' % (postnum)).text
     print("제목 :", text)
     date = driver.find_element_by_xpath('//*[@id="print_area"]/div[1]/table/tbody/tr[%d]/td[5]' % (postnum)).text
@@ -38,6 +40,7 @@ def output_new(postnum):
 
 
 def newpost(pagenum, postnum):
+    global driver
     url = "http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
     nextpagepost = 0
@@ -62,6 +65,8 @@ def newpost(pagenum, postnum):
 
 
 def notice(pagenum):
+    global driver
+    driver = webdriver.Chrome(executable_path='/workspace/chromedriver', options=options)
     postnum = 1
     url = "http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
@@ -89,9 +94,16 @@ class Repeat:
         pass
 
     def Recorona(self):
+        global driver, notice_dict,new_dict
+        driver = None
+        notice_dict.clear()
+        new_dict.clear()
         notice(1)
         toJson_notice(notice_dict)
+        print("notice save")
         toJson_new(new_dict)
+        print("new save")
+        driver.quit()
         threading.Timer(3600, self.Recorona).start()
 
 re = Repeat()

@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 import os
 import json
 import sys
+import threading
 
 def loadJson_it():
     with open('ithome.json','r',encoding = 'utf-8') as file:
@@ -39,15 +40,36 @@ def loadJson_DMath():
     with open('DMath.json','r',encoding = 'utf-8') as file:
         return json.load(file)
 
-it_json = loadJson_it()
-corona_notice_json = loadJson_notice()
-corona_new_json = loadJson_new()
-data_json = loadJson_data()
-creative_json = loadJson_creative()
-cpp_json = loadJson_cpp()
-electrical_json = loadJson_electrical()
-global_json = loadJson_global()
-DMath_json = loadJson_DMath()
+it_json = None
+corona_notice_json = None
+corona_new_json = None
+data_json = None
+creative_json =None
+cpp_json = None
+electrical_json = None
+global_json = None
+DMath_json = None
+ 
+class Repeat:
+    def __init__(self):
+        pass
+
+    def Reflask(self):
+        global it_json, corona_notice_json, corona_new_json, data_json, creative_json, cpp_json, electrical_json, global_json, DMath_json
+        it_json = loadJson_it()
+        corona_notice_json = loadJson_notice()
+        corona_new_json = loadJson_new()
+        data_json = loadJson_data()
+        creative_json = loadJson_creative()
+        cpp_json = loadJson_cpp()
+        electrical_json = loadJson_electrical()
+        global_json = loadJson_global()
+        DMath_json = loadJson_DMath()
+        print("load")
+        threading.Timer(3600, self.Reflask).start()
+
+re = Repeat()
+re.Reflask()
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
@@ -247,4 +269,4 @@ def corona():
     return jsonify(response_data)
 
 if __name__ == "__main__":              
-    app.run(host="0.0.0.0", port="8080",debug=True)
+    app.run(host="0.0.0.0", port="8080")

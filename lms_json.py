@@ -7,8 +7,6 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome(executable_path = '/workspace/chromedriver', options = options)
-
 data_dict = []
 cpp_dict = []
 creative_dict = []
@@ -16,10 +14,11 @@ electrical_dict = []
 global_dict = []
 
 def lms():
+    driver = webdriver.Chrome(executable_path = '/workspace/chromedriver', options = options)
     driver.get('https://ieilms.jbnu.ac.kr/login.php')
 
-    id = '학번'
-    pw = '비번'
+    id = '201819186'
+    pw = 'jsallyb8246!'
     driver.find_element_by_name('username').send_keys(id)
     driver.find_element_by_name('password').send_keys(pw)
     driver.find_element_by_xpath('//*[@id="region-main"]/div/div/div/div[1]/div[1]/div[2]/form/div[2]/input').click()
@@ -40,6 +39,7 @@ def lms():
             assignURL = []
             if not assigns:
                 print("과제가 없습니다.\n")
+                data_dict.append({'title' : '과제가 없습니다.', 'date' : ' '})
                 continue
             for j in assigns:
                 assignURL.append(j.find_element_by_tag_name('a').get_attribute('href'))
@@ -57,6 +57,7 @@ def lms():
             assignURL = []
             if not assigns:
                 print("과제가 없습니다.\n")
+                cpp_dict.append({'title' : '과제가 없습니다.', 'date' : ' '})
                 continue
             for j in assigns:
                 assignURL.append(j.find_element_by_tag_name('a').get_attribute('href'))
@@ -74,6 +75,7 @@ def lms():
             assignURL = []
             if not assigns:
                 print("과제가 없습니다.\n")
+                creative_dict.append({'title' : '과제가 없습니다.', 'date' : ' '})
                 continue
             for j in assigns:
                 assignURL.append(j.find_element_by_tag_name('a').get_attribute('href'))
@@ -91,6 +93,7 @@ def lms():
             assignURL = []
             if not assigns:
                 print("과제가 없습니다.\n")
+                global_dict.append({'title' : '과제가 없습니다.', 'date' : ' '})
                 continue
             for j in assigns:
                 assignURL.append(j.find_element_by_tag_name('a').get_attribute('href'))
@@ -108,6 +111,7 @@ def lms():
             assignURL = []
             if not assigns:
                 print("과제가 없습니다.\n")
+                electrical_dict.append({'title' : '과제가 없습니다.', 'date' : ' '})
                 continue
             for j in assigns:
                 assignURL.append(j.find_element_by_tag_name('a').get_attribute('href'))
@@ -118,6 +122,8 @@ def lms():
                 print("과제명 : " + assign.text)
                 print("과제 제출 마감일 : " + deadline.text + "\n")
                 electrical_dict.append({'title': assign.text, 'date': deadline.text})
+    driver.quit()
+
 
 def DatatoJson(data_json):
     with open('data.json', 'w', encoding='utf-8') as file:
@@ -145,6 +151,12 @@ class Repeat:
         pass
 
     def Relms(self):
+        global data_dict,cpp_dict,creative_dict,electrical_dict,global_dict
+        data_dict.clear()
+        cpp_dict.clear()
+        creative_dict.clear()
+        electrical_dict.clear()
+        global_dict.clear()
         lms()
         DatatoJson(data_dict)
         CpptoJson(cpp_dict)

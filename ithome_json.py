@@ -7,11 +7,11 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-driver = webdriver.Chrome(executable_path = '/workspace/chromedriver', options = options)
-
 it_dict = []
 
 def notice():
+	driver = webdriver.Chrome(executable_path = '/workspace/chromedriver', options = options)
+
 	driver.get('https://it.jbnu.ac.kr/it/index.do')
 
 	for i in range(5):
@@ -20,6 +20,8 @@ def notice():
 		date = text[-5:]
 		url = driver.find_element_by_xpath('//*[@id="recentBbsArtclObj_681_1050"]/li[%d]/a'%(i+1)).get_attribute("href")
 		it_dict.append({'title':title, 'date':date, 'url':url})
+		print(title,date,url)
+	driver.quit()
 
 def toJson(it_json):
     with open('ithome.json','w',encoding='utf-8') as file:
@@ -31,6 +33,8 @@ class Repeat:
 		pass
 
 	def Reithome(self):
+		global it_dict
+		it_dict.clear()
 		notice()
 		toJson(it_dict)
 		threading.Timer(3600,self.Reithome).start()
