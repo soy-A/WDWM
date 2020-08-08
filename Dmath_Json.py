@@ -15,8 +15,8 @@ def Dmath():
     driver = webdriver.Chrome(executable_path='/workspace/chromedriver', options=options)
     driver.get('https://jbnu.khub.kr/')
 
-    id = "201819186"
-    pw = "jsallyb8246!"
+    id = "" //id 입력
+    pw = "" //pw 입력
     driver.find_element_by_name('login').send_keys(id)
     driver.find_element_by_name('passwd').send_keys(pw)
     driver.find_element_by_xpath('//*[@id="loginform"]/table/tbody/tr[1]/td[2]/input').click()
