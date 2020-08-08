@@ -17,8 +17,8 @@ def lms():
     driver = webdriver.Chrome(executable_path = '/workspace/chromedriver', options = options)
     driver.get('https://ieilms.jbnu.ac.kr/login.php')
 
-    id = '201819186'
-    pw = 'jsallyb8246!'
+    id = '' //id 입력
+    pw = '' //pw 입력
     driver.find_element_by_name('username').send_keys(id)
     driver.find_element_by_name('password').send_keys(pw)
     driver.find_element_by_xpath('//*[@id="region-main"]/div/div/div/div[1]/div[1]/div[2]/form/div[2]/input').click()
