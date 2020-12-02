@@ -8,15 +8,18 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-DM_dict = []
+data = {} 
 
-def Dmath():
-    global DM_dict
-    driver = webdriver.Chrome(executable_path='/workspace/chromedriver', options=options)
+def Data():
+    global data
+    data = {"논리회로설계및실험(1분반)":[],"파일구조(1분반)":[],"프로그래밍언어론(1분반)":[],"컴퓨터구조(1분반)":[],"시스템프로그래밍(1분반)":[],"선형대수학(1분반)":[]}
+    print(data)
+    driver = webdriver.Chrome(executable_path='/home/ubuntu/wdwm/chromedriver', options=options)
+    #driver = webdriver.Chrome(executable_path='D:/WDWM/chromedriver')
     driver.get('https://jbnu.khub.kr/')
 
-    id = "" //id 입력
-    pw = "" //pw 입력
+    id = "" #id 입력
+    pw = "" #pw 입력
     driver.find_element_by_name('login').send_keys(id)
     driver.find_element_by_name('passwd').send_keys(pw)
     driver.find_element_by_xpath('//*[@id="loginform"]/table/tbody/tr[1]/td[2]/input').click()
@@ -28,14 +31,14 @@ def Dmath():
     for i in subjects:  #subjects리스트를 for문으로 돌면서 과목명과 과목 url을 가져옴
         name = i.get_attribute('title')
         url = i.get_attribute('onclick')
-        if name.split(' ')[0] == '2020-1':  #이번학기 과목만 subjectName과 subjectURL에 추가하기 위한 조건문
+        if name.split(' ')[0] == '2020-2학기':  #이번학기 과목만 subjectName과 subjectURL에 추가하기 위한 조건문
             subjectName.append(name.split(' ')[1])
             subjectURL.append(url)
-
-    subName = '이산수학(3분반)'   #이산수학만 가져오도록 함
+    print(subjectName) 
 
     for i in range(len(subjectName)):   #subjectName리스트의 크기만큼 for문을 돌려서 각 과목의 페이지 들어가서 과제 정보를 가져옴
-        if subjectName[i] == subName:
+        print(subjectName[i])
+        if subjectName[i] in list(data.keys()):
             driver.execute_script(subjectURL[i])
             time.sleep(2)
             driver.find_element_by_xpath('//*[@id="center2"]/div/div[2]/div/div[5]/div[2]/table/thead/tr/th[1]/a').send_keys('\n') #레포트에 들어감
@@ -49,28 +52,29 @@ def Dmath():
                     deadline = driver.find_element_by_xpath('//*[@id="borderB"]/tbody/tr[%d]/td[3]'%line).text
                     submit = driver.find_element_by_xpath('//*[@id="borderB"]/tbody/tr[%d]/td[4]'%line).text
                     print(worktitle, deadline, submit)
-                    DM_dict.append({'title': worktitle, 'date': deadline, 'submit': submit})
+                    data[subjectName[i]].append({'title': worktitle, 'date': deadline, 'submit': submit})
                     n += 5
             driver.back()
             driver.back()
             time.sleep(3)
     driver.quit()
 
-def toJson(DM_dict):
-    with open('DMath.json', 'w', encoding='utf-8') as file:
-        json.dump(DM_dict, file, ensure_ascii=False, indent='\t')
+def toJson(data):
+    with open('data.json', 'w', encoding='utf-8') as file:
+        json.dump(data, file, ensure_ascii=False, indent='\t')
 
 class Repeat:
 
     def __init__(self):
         pass
 
-    def ReDmath(self):
-        global DM_dict
-        DM_dict.clear()
-        Dmath()
-        toJson(DM_dict)
-        threading.Timer(3600,self.ReDmath).start()
+    def ReData(self):
+        global data
+        data.clear()
+        Data()
+        toJson(data)
+        threading.Timer(3600,self.ReData).start()
 
 re = Repeat()
-re.ReDmath()
+re.ReData()
+

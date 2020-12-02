@@ -66,7 +66,7 @@ def newpost(pagenum, postnum):
 
 def notice(pagenum):
     global driver
-    driver = webdriver.Chrome(executable_path='/workspace/chromedriver', options=options)
+    driver = webdriver.Chrome(executable_path='/home/ubuntu/wdwm/chromedriver', options=options)
     postnum = 1
     url = "http://www.jbnu.ac.kr/kor/?menuID=452&pno={pagenum}"
     driver.get(url)
